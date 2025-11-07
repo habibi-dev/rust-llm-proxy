@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "ee9e8c6a-ef21-4855-bad6-80aa8bcc7176",
+		"name": "Job",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1645693"
+	},
+	"item": [
+		{
+			"name": "Show",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{api-key}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/v1/jobs/:job_id",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"jobs",
+						":job_id"
+					],
+					"variable": [
+						{
+							"key": "job_id",
+							"value": "43"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

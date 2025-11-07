@@ -1,6 +1,6 @@
 # 🦀 Rust LLM Proxy
 
-A lightweight, production-ready gateway for routing client requests to multiple large language model (LLM) providers. The service is written in Rust on top of Axum and Tokio, uses SeaORM for persistence, and embeds HTML templates with Askama for lightweight admin views.
+A high-performance Rust-based gateway for connecting multiple clients to large language model (LLM) providers such as OpenAI, Anthropic, and local inference servers. It provides unified APIs, request logging, per-user access control, and key-based authentication for secure and scalable AI integrations.
 
 ## Key Capabilities
 - **Unified AI access layer** – Proxy requests to commercial providers (OpenAI, Anthropic) or self-hosted inference services through a single REST interface.

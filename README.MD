@@ -8,6 +8,12 @@ A lightweight, production-ready gateway for routing client requests to multiple 
 - **Job tracking** – Persist service jobs in SQLite (or any SeaORM-compatible database) to provide deterministic auditing of model usage.
 - **Operational tooling** – Automatic database migrations and seeders, structured configuration, and reusable middleware for logging, authentication, and authorization.
 
+## Roadmap
+- ✅ Gemini (implemented)
+- 🔜 OpenAI
+- 🔜 Grok
+- 🔜 Claude
+
 ## Project Layout
 ```
 ├── src

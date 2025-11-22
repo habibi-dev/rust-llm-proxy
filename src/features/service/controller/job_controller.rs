@@ -81,7 +81,7 @@ impl JobController {
         });
 
         // Wait for result with timeout
-        match timeout(Duration::from_secs(10), receiver).await {
+        match timeout(Duration::from_secs(59), receiver).await {
             Ok(Ok(Ok(result))) => Ok(JobChatResponse::completed(job_id, result)),
             Ok(Ok(Err(error))) => Ok(JobChatResponse::failed(job_id, error)),
             Ok(Err(_canceled)) => Ok(JobChatResponse::failed(

@@ -1,6 +1,6 @@
 [package]
 name = "rust-llm-proxy"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 license = "MIT"
 authors = ["Habibi-Dev"]
@@ -20,7 +20,7 @@ axum = { version = "0.8.6" }
 serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
 dotenvy = "0.15.7"
 serde = { version = "1.0.228", features = ["derive"] }
-migration = { path = "migration" } # depends on your needs
+migration = { path = "migration" }
 anyhow = "1.0.100"
 rust-embed = { version = "8.7.2", features = ["include-exclude"] }
 mime_guess = "2.0.5"

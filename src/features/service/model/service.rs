@@ -9,6 +9,7 @@ pub struct Model {
     pub title: String,
     pub provider: String,
     pub key: String,
+    pub model: String,
     pub status: bool,
     pub created_at: DateTime,
 }

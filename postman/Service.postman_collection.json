@@ -73,16 +73,21 @@
 							"value": "gemini",
 							"type": "text"
 						},
-						{
-							"key": "key",
-							"value": "AIzaSyDkOqD16lHCt6c_lFV7yNbnQanGP0fJ66E",
-							"type": "text"
-						},
-						{
-							"key": "status",
-							"value": "true",
-							"type": "text"
-						}
+                                                {
+                                                        "key": "key",
+                                                        "value": "AIzaSyDkOqD16lHCt6c_lFV7yNbnQanGP0fJ66E",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "model",
+                                                        "value": "gemini-2.0-flash-lite",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "status",
+                                                        "value": "true",
+                                                        "type": "text"
+                                                }
 					]
 				},
 				"url": {
@@ -132,16 +137,21 @@
 							"value": "gemini",
 							"type": "text"
 						},
-						{
-							"key": "key",
-							"value": "AIzaSyDkOqD16lHCt6c_lFV7yNbnQanGP0fJ66E",
-							"type": "text"
-						},
-						{
-							"key": "status",
-							"value": "true",
-							"type": "text"
-						}
+                                                {
+                                                        "key": "key",
+                                                        "value": "AIzaSyDkOqD16lHCt6c_lFV7yNbnQanGP0fJ66E",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "model",
+                                                        "value": "gemini-2.0-flash-lite",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "status",
+                                                        "value": "true",
+                                                        "type": "text"
+                                                }
 					]
 				},
 				"url": {

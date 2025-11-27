@@ -70,6 +70,7 @@ impl JobController {
         let context = JobExecutionContext::new(
             job_id,
             service.provider.clone(),
+            service.model.clone(),
             service.key.clone(),
             message.to_owned(),
         );

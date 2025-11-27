@@ -1,3 +1,4 @@
+use crate::features::service::constants::DEFAULT_GEMINI_MODEL;
 use crate::features::service::model::prelude::Service;
 use crate::features::service::model::service;
 use crate::features::service::model::service::{Column, Model};
@@ -23,6 +24,7 @@ impl ServiceRepository {
             title: Set(data.title),
             provider: Set(data.provider),
             key: Set(data.key.expect("key is required")),
+            model: Set(Self::resolve_model(data.model, None)),
             status: Set(data.status.unwrap_or(false)),
             ..Default::default()
         };
@@ -36,7 +38,7 @@ impl ServiceRepository {
     pub async fn update(service_id: i64, data: ServiceForm) -> Result<Option<Model>, DbErr> {
         let state = app_state();
 
-        let Some(_service) = service::Entity::find_by_id(service_id)
+        let Some(existing_service) = service::Entity::find_by_id(service_id)
             .one(&state._db)
             .await?
         else {
@@ -48,6 +50,10 @@ impl ServiceRepository {
             title: Set(data.title),
             provider: Set(data.provider),
             key: Set(data.key.expect("key is required")),
+            model: Set(Self::resolve_model(
+                data.model,
+                Some(existing_service.model),
+            )),
             status: Set(data.status.expect("status is required")),
             ..Default::default()
         };
@@ -84,5 +90,13 @@ impl ServiceRepository {
             .await?;
 
         Ok(service)
+    }
+
+    fn resolve_model(model: Option<String>, existing: Option<String>) -> String {
+        if let Some(current) = model.filter(|value| !value.trim().is_empty()) {
+            return current;
+        }
+
+        existing.unwrap_or_else(|| DEFAULT_GEMINI_MODEL.to_string())
     }
 }

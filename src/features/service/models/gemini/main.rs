@@ -1,9 +1,20 @@
+use crate::features::service::constants::DEFAULT_GEMINI_MODEL;
 use crate::features::service::models::gemini::types::{
     ContentPart, GeminiRequest, GeminiResponse, TextPart,
 };
 use reqwest::Client;
 
-pub async fn gemini(prompt: &str, api_key: &str) -> Result<String, Box<dyn std::error::Error>> {
+pub async fn gemini(
+    prompt: &str,
+    api_key: &str,
+    model: &str,
+) -> Result<String, Box<dyn std::error::Error>> {
+    let resolved_model = if model.trim().is_empty() {
+        DEFAULT_GEMINI_MODEL.to_string()
+    } else {
+        model.to_string()
+    };
+
     // Build request payload
     let request = GeminiRequest {
         contents: vec![ContentPart {
@@ -16,8 +27,8 @@ pub async fn gemini(prompt: &str, api_key: &str) -> Result<String, Box<dyn std::
     // Create HTTP client and send request
     let client = Client::new();
     let url = format!(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={}",
-        api_key
+        "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent?key={}",
+        resolved_model, api_key
     );
 
     let response = client

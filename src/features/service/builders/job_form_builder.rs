@@ -21,7 +21,7 @@ impl JobFormBuilder {
     pub fn build(config: JobFormBuilderConfig) -> JobForm {
         JobForm {
             hash: config.hash,
-            model: config.service_model.provider.clone(),
+            model: config.service_model.model.clone(),
             input: JobPayloadBuilder::build_input(&config.message),
             output: config.output,
             user_id: config.user_id,

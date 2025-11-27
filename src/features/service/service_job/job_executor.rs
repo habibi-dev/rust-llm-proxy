@@ -12,7 +12,13 @@ impl JobExecutor {
     pub async fn execute(context: JobExecutionContext) -> Result<String, String> {
         Self::update_status(context.job_id, JobStatus::Running, None).await?;
 
-        match ProviderDispatcher::dispatch(&context.provider, &context.message, &context.key).await
+        match ProviderDispatcher::dispatch(
+            &context.provider,
+            &context.model,
+            &context.message,
+            &context.key,
+        )
+        .await
         {
             Ok(output) => {
                 Self::update_status(

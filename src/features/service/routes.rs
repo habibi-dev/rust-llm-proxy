@@ -20,12 +20,12 @@ pub fn service_route() -> (&'static str, Router) {
             "/{service_id}",
             put(ServiceController::update).delete(ServiceController::delete),
         )
-        .route("/{service_id}/chat", post(ServiceController::chat))
         .route_layer(middleware_is_admin);
 
     (
         "api/v1/services",
         Router::new()
+            .route("/{service_id}/chat", post(ServiceController::chat))
             .merge(admin_router)
             .route_layer(middleware_auth),
     )

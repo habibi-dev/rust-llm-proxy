@@ -40,7 +40,7 @@ impl Router {
             .layer(
                 ServiceBuilder::new()
                     .layer(HandleErrorLayer::new(handle_tower_error))
-                    .layer(TimeoutLayer::new(Duration::from_secs(30))) // inner
+                    .layer(TimeoutLayer::new(Duration::from_secs(120))) // inner
                     .layer(TraceLayer::new_for_http())
                     .into_inner(),
             )

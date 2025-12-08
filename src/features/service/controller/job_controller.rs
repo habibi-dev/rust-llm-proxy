@@ -5,6 +5,7 @@ use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::dto::job_chat_response::JobChatResponse;
 use crate::features::service::dto::job_controller_error::JobControllerError;
 use crate::features::service::dto::job_execution_context::JobExecutionContext;
+use crate::features::service::dto::service_settings::ServiceSettings;
 use crate::features::service::model::jobs::JobStatus;
 use crate::features::service::model::service;
 use crate::features::service::repository::jobs_repository::JobRepository;
@@ -68,12 +69,14 @@ impl JobController {
 
         let job_id = job.id;
         let (sender, receiver) = oneshot::channel();
+        let settings = ServiceSettings::from_json(&service.settings);
         let context = JobExecutionContext::new(
             job_id,
             service.provider.clone(),
             service.model.clone(),
             service.key.clone(),
             prompt,
+            settings,
         );
 
         // Spawn job execution

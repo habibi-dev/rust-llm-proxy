@@ -1,4 +1,5 @@
 use super::job_controller::JobController;
+use crate::core::form::parse_nested_form;
 use crate::core::response::{json_error, json_success};
 use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::repository::service_repository::ServiceRepository;
@@ -7,6 +8,7 @@ use crate::features::service::validation::service_form::ServiceForm;
 use crate::features::users::service::auth_user::AuthUser;
 use axum::Form;
 use axum::extract::Path;
+use axum::extract::RawForm;
 use axum::http::{HeaderMap, StatusCode};
 use axum::response::{IntoResponse, Response};
 use validator::Validate;
@@ -18,7 +20,12 @@ impl ServiceController {
         json_success(services)
     }
 
-    pub async fn create(Form(form): Form<ServiceForm>) -> Response {
+    pub async fn create(raw_form: RawForm) -> Response {
+        let form: ServiceForm = match parse_nested_form(&raw_form) {
+            Ok(form) => form,
+            Err(message) => return json_error(StatusCode::BAD_REQUEST, message),
+        };
+
         if let Err(e) = form.validate() {
             return json_error(StatusCode::BAD_REQUEST, e.to_string());
         }
@@ -29,7 +36,12 @@ impl ServiceController {
         }
     }
 
-    pub async fn update(Path(service_id): Path<i64>, Form(form): Form<ServiceForm>) -> Response {
+    pub async fn update(Path(service_id): Path<i64>, raw_form: RawForm) -> Response {
+        let form: ServiceForm = match parse_nested_form(&raw_form) {
+            Ok(form) => form,
+            Err(message) => return json_error(StatusCode::BAD_REQUEST, message),
+        };
+
         if let Err(e) = form.validate() {
             return json_error(StatusCode::BAD_REQUEST, e.to_string());
         }

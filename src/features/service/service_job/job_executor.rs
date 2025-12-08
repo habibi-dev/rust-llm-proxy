@@ -1,5 +1,6 @@
 use crate::features::service::builders::JobPayloadBuilder;
 use crate::features::service::dto::job_execution_context::JobExecutionContext;
+use crate::features::service::dto::provider_response::ProviderResponse;
 use crate::features::service::model::jobs::{JobStatus, Model};
 use crate::features::service::repository::jobs_repository::JobRepository;
 use crate::features::service::service_job::provider_dispatcher::ProviderDispatcher;
@@ -9,7 +10,7 @@ use sea_orm::prelude::Json;
 pub struct JobExecutor;
 
 impl JobExecutor {
-    pub async fn execute(context: JobExecutionContext) -> Result<String, String> {
+    pub async fn execute(context: JobExecutionContext) -> Result<ProviderResponse, String> {
         Self::update_status(context.job_id, JobStatus::Running, None).await?;
 
         match ProviderDispatcher::dispatch(
@@ -17,6 +18,7 @@ impl JobExecutor {
             &context.model,
             &context.prompt,
             &context.key,
+            &context.settings,
         )
         .await
         {

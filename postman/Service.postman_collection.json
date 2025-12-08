@@ -1,272 +1,402 @@
 {
-	"info": {
-		"_postman_id": "4a45e8a1-7ee0-46fb-8baf-b1af89ac305c",
-		"name": "Service",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1645693"
-	},
-	"item": [
-		{
-			"name": "List",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{api-key}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "X-API-Key",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/api/v1/services",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"services"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{api-key}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "X-API-Key",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "title",
-							"value": "Gemini",
-							"type": "text"
-						},
-						{
-							"key": "provider",
-							"value": "gemini",
-							"type": "text"
-						},
+        "info": {
+                "_postman_id": "4a45e8a1-7ee0-46fb-8baf-b1af89ac305c",
+                "name": "Service",
+                "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+                "_exporter_id": "1645693"
+        },
+        "item": [
+                {
+                        "name": "List",
+                        "request": {
+                                "auth": {
+                                        "type": "apikey",
+                                        "apikey": [
+                                                {
+                                                        "key": "value",
+                                                        "value": "{{api-key}}",
+                                                        "type": "string"
+                                                },
                                                 {
                                                         "key": "key",
-                                                        "value": "AIzaSyDkOqD16lHCt6c_lFV7yNbnQanGP0fJ66E",
+                                                        "value": "X-API-Key",
+                                                        "type": "string"
+                                                }
+                                        ]
+                                },
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                        "raw": "{{domain}}/api/v1/services",
+                                        "host": [
+                                                "{{domain}}"
+                                        ],
+                                        "path": [
+                                                "api",
+                                                "v1",
+                                                "services"
+                                        ]
+                                }
+                        },
+                        "response": []
+                },
+                {
+                        "name": "Create",
+                        "request": {
+                                "auth": {
+                                        "type": "apikey",
+                                        "apikey": [
+                                                {
+                                                        "key": "value",
+                                                        "value": "{{api-key}}",
+                                                        "type": "string"
+                                                },
+                                                {
+                                                        "key": "key",
+                                                        "value": "X-API-Key",
+                                                        "type": "string"
+                                                }
+                                        ]
+                                },
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                        "mode": "urlencoded",
+                                        "urlencoded": [
+                                                {
+                                                        "key": "title",
+                                                        "value": "DeepSeek Chat",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "provider",
+                                                        "value": "deepseek",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "key",
+                                                        "value": "sk-REPLACE_WITH_KEY",
                                                         "type": "text"
                                                 },
                                                 {
                                                         "key": "model",
-                                                        "value": "gemini-2.0-flash-lite",
+                                                        "value": "deepseek-chat",
                                                         "type": "text"
                                                 },
                                                 {
                                                         "key": "status",
                                                         "value": "true",
                                                         "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[frequency_penalty]",
+                                                        "value": "0",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[max_tokens]",
+                                                        "value": "4096",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[presence_penalty]",
+                                                        "value": "0",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[response_format]",
+                                                        "value": "{\"type\":\"text\"}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[stop]",
+                                                        "value": "[\"\\n\"]",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[stream_options]",
+                                                        "value": "{\"include_usage\":true}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[temperature]",
+                                                        "value": "0.7",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[top_p]",
+                                                        "value": "1",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[tools]",
+                                                        "value": "[]",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[tool_choice]",
+                                                        "value": "{\"type\":\"none\"}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[logprobs]",
+                                                        "value": "false",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[top_logprobs]",
+                                                        "value": "0",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[thinking]",
+                                                        "value": "{\"type\":\"disabled\"}",
+                                                        "type": "text"
                                                 }
-					]
-				},
-				"url": {
-					"raw": "{{domain}}/api/v1/services",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"services"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{api-key}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "X-API-Key",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "title",
-							"value": "Gemini",
-							"type": "text"
-						},
-						{
-							"key": "provider",
-							"value": "gemini",
-							"type": "text"
-						},
+                                        ]
+                                },
+                                "url": {
+                                        "raw": "{{domain}}/api/v1/services",
+                                        "host": [
+                                                "{{domain}}"
+                                        ],
+                                        "path": [
+                                                "api",
+                                                "v1",
+                                                "services"
+                                        ]
+                                }
+                        },
+                        "response": []
+                },
+                {
+                        "name": "Update",
+                        "request": {
+                                "auth": {
+                                        "type": "apikey",
+                                        "apikey": [
+                                                {
+                                                        "key": "value",
+                                                        "value": "{{api-key}}",
+                                                        "type": "string"
+                                                },
                                                 {
                                                         "key": "key",
-                                                        "value": "AIzaSyDkOqD16lHCt6c_lFV7yNbnQanGP0fJ66E",
+                                                        "value": "X-API-Key",
+                                                        "type": "string"
+                                                }
+                                        ]
+                                },
+                                "method": "PUT",
+                                "header": [],
+                                "body": {
+                                        "mode": "urlencoded",
+                                        "urlencoded": [
+                                                {
+                                                        "key": "title",
+                                                        "value": "DeepSeek Chat",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "provider",
+                                                        "value": "deepseek",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "key",
+                                                        "value": "sk-REPLACE_WITH_KEY",
                                                         "type": "text"
                                                 },
                                                 {
                                                         "key": "model",
-                                                        "value": "gemini-2.0-flash-lite",
+                                                        "value": "deepseek-chat",
                                                         "type": "text"
                                                 },
                                                 {
                                                         "key": "status",
                                                         "value": "true",
                                                         "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[frequency_penalty]",
+                                                        "value": "0",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[max_tokens]",
+                                                        "value": "4096",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[presence_penalty]",
+                                                        "value": "0",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[response_format]",
+                                                        "value": "{\"type\":\"text\"}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[stop]",
+                                                        "value": "[\"\\n\"]",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[stream_options]",
+                                                        "value": "{\"include_usage\":true}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[temperature]",
+                                                        "value": "0.7",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[top_p]",
+                                                        "value": "1",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[tools]",
+                                                        "value": "[]",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[tool_choice]",
+                                                        "value": "{\"type\":\"none\"}",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[logprobs]",
+                                                        "value": "false",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[top_logprobs]",
+                                                        "value": "0",
+                                                        "type": "text"
+                                                },
+                                                {
+                                                        "key": "deepseek_settings[thinking]",
+                                                        "value": "{\"type\":\"disabled\"}",
+                                                        "type": "text"
                                                 }
-					]
-				},
-				"url": {
-					"raw": "{{domain}}/api/v1/services/:service_id",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"services",
-						":service_id"
-					],
-					"variable": [
-						{
-							"key": "service_id",
-							"value": "7"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Chat",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{api-key}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "X-API-Key",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "message",
-							"value": "امروز چند شنبه است ؟",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "{{domain}}/api/v1/services/:service_id/chat",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"services",
-						":service_id",
-						"chat"
-					],
-					"variable": [
-						{
-							"key": "service_id",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete",
-			"request": {
-				"auth": {
-					"type": "apikey",
-					"apikey": [
-						{
-							"key": "value",
-							"value": "{{api-key}}",
-							"type": "string"
-						},
-						{
-							"key": "key",
-							"value": "X-API-Key",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{domain}}/api/v1/services/:service_id",
-					"host": [
-						"{{domain}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"services",
-						":service_id"
-					],
-					"variable": [
-						{
-							"key": "service_id",
-							"value": "6"
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	]
+                                        ]
+                                },
+                                "url": {
+                                        "raw": "{{domain}}/api/v1/services/:service_id",
+                                        "host": [
+                                                "{{domain}}"
+                                        ],
+                                        "path": [
+                                                "api",
+                                                "v1",
+                                                "services",
+                                                ":service_id"
+                                        ],
+                                        "variable": [
+                                                {
+                                                        "key": "service_id",
+                                                        "value": "7"
+                                                }
+                                        ]
+                                }
+                        },
+                        "response": []
+                },
+                {
+                        "name": "Chat",
+                        "request": {
+                                "auth": {
+                                        "type": "apikey",
+                                        "apikey": [
+                                                {
+                                                        "key": "value",
+                                                        "value": "{{api-key}}",
+                                                        "type": "string"
+                                                },
+                                                {
+                                                        "key": "key",
+                                                        "value": "X-API-Key",
+                                                        "type": "string"
+                                                }
+                                        ]
+                                },
+                                "method": "POST",
+                                "header": [],
+                                "body": {
+                                        "mode": "urlencoded",
+                                        "urlencoded": [
+                                                {
+                                                        "key": "message",
+                                                        "value": "امروز چند شنبه است ؟",
+                                                        "type": "text"
+                                                }
+                                        ]
+                                },
+                                "url": {
+                                        "raw": "{{domain}}/api/v1/services/:service_id/chat",
+                                        "host": [
+                                                "{{domain}}"
+                                        ],
+                                        "path": [
+                                                "api",
+                                                "v1",
+                                                "services",
+                                                ":service_id",
+                                                "chat"
+                                        ],
+                                        "variable": [
+                                                {
+                                                        "key": "service_id",
+                                                        "value": "1"
+                                                }
+                                        ]
+                                }
+                        },
+                        "response": []
+                },
+                {
+                        "name": "Delete",
+                        "request": {
+                                "auth": {
+                                        "type": "apikey",
+                                        "apikey": [
+                                                {
+                                                        "key": "value",
+                                                        "value": "{{api-key}}",
+                                                        "type": "string"
+                                                },
+                                                {
+                                                        "key": "key",
+                                                        "value": "X-API-Key",
+                                                        "type": "string"
+                                                }
+                                        ]
+                                },
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                        "raw": "{{domain}}/api/v1/services/:service_id",
+                                        "host": [
+                                                "{{domain}}"
+                                        ],
+                                        "path": [
+                                                "api",
+                                                "v1",
+                                                "services",
+                                                ":service_id"
+                                        ],
+                                        "variable": [
+                                                {
+                                                        "key": "service_id",
+                                                        "value": "6"
+                                                }
+                                        ]
+                                }
+                        },
+                        "response": []
+                }
+        ]
 }

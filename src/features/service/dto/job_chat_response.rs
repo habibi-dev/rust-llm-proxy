@@ -1,3 +1,4 @@
+use super::provider_response::ProviderResponse;
 use crate::features::service::model::jobs::JobStatus;
 use chrono::{DateTime as ChronoDateTime, Utc};
 use serde::Serialize;
@@ -7,7 +8,7 @@ pub struct JobChatResponse {
     pub job_id: i64,
     pub status: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub result: Option<String>,
+    pub result: Option<ProviderResponse>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -17,7 +18,7 @@ pub struct JobChatResponse {
 }
 
 impl JobChatResponse {
-    pub fn completed(job_id: i64, result: String) -> Self {
+    pub fn completed(job_id: i64, result: ProviderResponse) -> Self {
         let now = Utc::now();
         Self {
             job_id,
@@ -56,7 +57,7 @@ impl JobChatResponse {
         job_id: i64,
         parent_job_id: i64,
         status: JobStatus,
-        result: Option<String>,
+        result: Option<ProviderResponse>,
         error: Option<String>,
         responded_at: ChronoDateTime<Utc>,
     ) -> Self {

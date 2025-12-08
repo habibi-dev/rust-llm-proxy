@@ -1,4 +1,5 @@
 use crate::features::service::constants::{DEFAULT_DEEPSEEK_MODEL, DEFAULT_GEMINI_MODEL};
+use crate::features::service::dto::service_settings::ServiceSettings;
 use crate::features::service::model::prelude::Service;
 use crate::features::service::model::service;
 use crate::features::service::model::service::{Column, Model};
@@ -20,13 +21,15 @@ impl ServiceRepository {
 
     pub async fn create(data: ServiceForm) -> Result<Option<Model>, DbErr> {
         let state = app_state();
-        let provider = data.provider;
-        let model = Self::resolve_model(&provider, data.model, None);
+        let provider = data.provider.clone();
+        let model = Self::resolve_model(&provider, data.model.clone(), None);
+        let settings = Self::build_settings(&data)?;
         let service = service::ActiveModel {
             title: Set(data.title),
             provider: Set(provider.clone()),
             key: Set(data.key.expect("key is required")),
             model: Set(model),
+            settings: Set(serde_json::to_value(settings).unwrap_or_default()),
             status: Set(data.status.unwrap_or(false)),
             ..Default::default()
         };
@@ -47,9 +50,13 @@ impl ServiceRepository {
             return Ok(None);
         };
 
-        let provider = data.provider;
-        let model =
-            Self::resolve_model(&provider, data.model, Some(existing_service.model.clone()));
+        let provider = data.provider.clone();
+        let model = Self::resolve_model(
+            &provider,
+            data.model.clone(),
+            Some(existing_service.model.clone()),
+        );
+        let settings = Self::build_settings(&data)?;
 
         let am = service::ActiveModel {
             id: Set(service_id),
@@ -57,6 +64,7 @@ impl ServiceRepository {
             provider: Set(provider),
             key: Set(data.key.expect("key is required")),
             model: Set(model),
+            settings: Set(serde_json::to_value(settings).unwrap_or_default()),
             status: Set(data.status.expect("status is required")),
             ..Default::default()
         };
@@ -108,5 +116,9 @@ impl ServiceRepository {
             "deepseek" => DEFAULT_DEEPSEEK_MODEL.to_string(),
             _ => DEFAULT_GEMINI_MODEL.to_string(),
         }
+    }
+
+    fn build_settings(form: &ServiceForm) -> Result<ServiceSettings, DbErr> {
+        form.build_settings().map_err(DbErr::Custom)
     }
 }

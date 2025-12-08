@@ -1,4 +1,5 @@
 use super::chat_prompt::ChatPrompt;
+use super::service_settings::ServiceSettings;
 
 pub struct JobExecutionContext {
     pub job_id: i64,
@@ -6,6 +7,7 @@ pub struct JobExecutionContext {
     pub model: String,
     pub key: String,
     pub prompt: ChatPrompt,
+    pub settings: ServiceSettings,
 }
 
 impl JobExecutionContext {
@@ -15,6 +17,7 @@ impl JobExecutionContext {
         model: String,
         key: String,
         prompt: ChatPrompt,
+        settings: ServiceSettings,
     ) -> Self {
         Self {
             job_id,
@@ -22,6 +25,7 @@ impl JobExecutionContext {
             model,
             key,
             prompt,
+            settings,
         }
     }
 }

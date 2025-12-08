@@ -1,6 +1,7 @@
 use crate::core::response::{json_error, json_success};
 use crate::features::service::builders::JobFormBuilder;
 use crate::features::service::builders::job_form_builder::JobFormBuilderConfig;
+use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::dto::job_chat_response::JobChatResponse;
 use crate::features::service::dto::job_controller_error::JobControllerError;
 use crate::features::service::dto::job_execution_context::JobExecutionContext;
@@ -26,17 +27,17 @@ impl JobController {
         service: &service::Model,
         user: &user::Model,
         raw_api_key: &str,
-        message: &str,
+        prompt: ChatPrompt,
     ) -> Result<JobChatResponse, JobControllerError> {
         let Some(api_key) = RepositoryApiKey::get_by_key(raw_api_key).await else {
             return Err(JobControllerError::ApiKeyNotFound);
         };
 
-        let hash = hash::generate(message, service);
+        let hash = hash::generate(&prompt, service);
 
         // Try to use cached response
         if let Some(cached_response) =
-            JobCacheManager::try_get_cached_response(&hash, service, user.id, api_key.id, message)
+            JobCacheManager::try_get_cached_response(&hash, service, user.id, api_key.id, &prompt)
                 .await?
         {
             return Ok(cached_response);
@@ -47,7 +48,7 @@ impl JobController {
             service_model: service.clone(),
             user_id: user.id,
             api_key_id: api_key.id,
-            message: message.to_string(),
+            prompt: prompt.clone(),
             status: JobStatus::Queued,
             output: None,
             finished_at: None,
@@ -72,7 +73,7 @@ impl JobController {
             service.provider.clone(),
             service.model.clone(),
             service.key.clone(),
-            message.to_owned(),
+            prompt,
         );
 
         // Spawn job execution

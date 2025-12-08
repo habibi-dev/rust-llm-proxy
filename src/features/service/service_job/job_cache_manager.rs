@@ -1,6 +1,7 @@
 use crate::features::service::builders::JobFormBuilder;
 use crate::features::service::builders::job_form_builder::JobFormBuilderConfig;
 use crate::features::service::dto::cached_job_snapshot::CachedJobSnapshot;
+use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::dto::job_chat_response::JobChatResponse;
 use crate::features::service::dto::job_controller_error::JobControllerError;
 use crate::features::service::model::service;
@@ -17,7 +18,7 @@ impl JobCacheManager {
         service: &service::Model,
         user_id: i64,
         api_key_id: i64,
-        message: &str,
+        prompt: &ChatPrompt,
     ) -> Result<Option<JobChatResponse>, JobControllerError> {
         let Some(existing_job) = JobRepository::find_by_hash(hash)
             .await
@@ -35,7 +36,7 @@ impl JobCacheManager {
             service_model: service.clone(),
             user_id,
             api_key_id,
-            message: message.to_string(),
+            prompt: prompt.clone(),
             status: snapshot.status.clone(),
             output: snapshot.output.clone(),
             finished_at: Some(Utc::now().naive_utc()),

@@ -1,11 +1,12 @@
 use crate::features::service::constants::DEFAULT_GEMINI_MODEL;
+use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::models::gemini::types::{
     ContentPart, GeminiRequest, GeminiResponse, TextPart,
 };
 use reqwest::Client;
 
 pub async fn gemini(
-    prompt: &str,
+    prompt: &ChatPrompt,
     api_key: &str,
     model: &str,
 ) -> Result<String, Box<dyn std::error::Error>> {
@@ -19,7 +20,7 @@ pub async fn gemini(
     let request = GeminiRequest {
         contents: vec![ContentPart {
             parts: vec![TextPart {
-                text: prompt.to_string(),
+                text: prompt.user_message.clone(),
             }],
         }],
     };

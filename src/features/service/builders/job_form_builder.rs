@@ -1,4 +1,5 @@
 use super::job_payload_builder::JobPayloadBuilder;
+use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::model::jobs::JobStatus;
 use crate::features::service::model::service;
 use crate::features::service::validation::job_form::JobForm;
@@ -9,7 +10,7 @@ pub struct JobFormBuilderConfig {
     pub service_model: service::Model,
     pub user_id: i64,
     pub api_key_id: i64,
-    pub message: String,
+    pub prompt: ChatPrompt,
     pub status: JobStatus,
     pub output: Option<Json>,
     pub finished_at: Option<DateTime>,
@@ -22,7 +23,7 @@ impl JobFormBuilder {
         JobForm {
             hash: config.hash,
             model: config.service_model.model.clone(),
-            input: JobPayloadBuilder::build_input(&config.message),
+            input: JobPayloadBuilder::build_input(&config.prompt),
             output: config.output,
             user_id: config.user_id,
             api_key_id: config.api_key_id,

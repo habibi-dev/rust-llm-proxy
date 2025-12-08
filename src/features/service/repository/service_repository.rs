@@ -1,4 +1,4 @@
-use crate::features::service::constants::DEFAULT_GEMINI_MODEL;
+use crate::features::service::constants::{DEFAULT_DEEPSEEK_MODEL, DEFAULT_GEMINI_MODEL};
 use crate::features::service::model::prelude::Service;
 use crate::features::service::model::service;
 use crate::features::service::model::service::{Column, Model};
@@ -20,11 +20,13 @@ impl ServiceRepository {
 
     pub async fn create(data: ServiceForm) -> Result<Option<Model>, DbErr> {
         let state = app_state();
+        let provider = data.provider;
+        let model = Self::resolve_model(&provider, data.model, None);
         let service = service::ActiveModel {
             title: Set(data.title),
-            provider: Set(data.provider),
+            provider: Set(provider.clone()),
             key: Set(data.key.expect("key is required")),
-            model: Set(Self::resolve_model(data.model, None)),
+            model: Set(model),
             status: Set(data.status.unwrap_or(false)),
             ..Default::default()
         };
@@ -45,15 +47,16 @@ impl ServiceRepository {
             return Ok(None);
         };
 
+        let provider = data.provider;
+        let model =
+            Self::resolve_model(&provider, data.model, Some(existing_service.model.clone()));
+
         let am = service::ActiveModel {
             id: Set(service_id),
             title: Set(data.title),
-            provider: Set(data.provider),
+            provider: Set(provider),
             key: Set(data.key.expect("key is required")),
-            model: Set(Self::resolve_model(
-                data.model,
-                Some(existing_service.model),
-            )),
+            model: Set(model),
             status: Set(data.status.expect("status is required")),
             ..Default::default()
         };
@@ -92,11 +95,18 @@ impl ServiceRepository {
         Ok(service)
     }
 
-    fn resolve_model(model: Option<String>, existing: Option<String>) -> String {
+    fn resolve_model(provider: &str, model: Option<String>, existing: Option<String>) -> String {
         if let Some(current) = model.filter(|value| !value.trim().is_empty()) {
             return current;
         }
 
-        existing.unwrap_or_else(|| DEFAULT_GEMINI_MODEL.to_string())
+        if let Some(existing_model) = existing.filter(|value| !value.trim().is_empty()) {
+            return existing_model;
+        }
+
+        match provider {
+            "deepseek" => DEFAULT_DEEPSEEK_MODEL.to_string(),
+            _ => DEFAULT_GEMINI_MODEL.to_string(),
+        }
     }
 }

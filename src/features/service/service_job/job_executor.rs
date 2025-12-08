@@ -15,7 +15,7 @@ impl JobExecutor {
         match ProviderDispatcher::dispatch(
             &context.provider,
             &context.model,
-            &context.message,
+            &context.prompt,
             &context.key,
         )
         .await

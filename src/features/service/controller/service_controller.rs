@@ -1,5 +1,6 @@
 use super::job_controller::JobController;
 use crate::core::response::{json_error, json_success};
+use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::repository::service_repository::ServiceRepository;
 use crate::features::service::validation::chat_form::ChatForm;
 use crate::features::service::validation::service_form::ServiceForm;
@@ -69,13 +70,9 @@ impl ServiceController {
             return json_error(StatusCode::UNAUTHORIZED, "Missing API key");
         };
 
-        match JobController::handle_chat_request(
-            &service,
-            user.as_ref(),
-            raw_api_key,
-            &form.message,
-        )
-        .await
+        let prompt = ChatPrompt::new(form.message, form.system_message);
+
+        match JobController::handle_chat_request(&service, user.as_ref(), raw_api_key, prompt).await
         {
             Ok(payload) => json_success(payload),
             Err(err) => json_error(err.status_code(), err.message()),

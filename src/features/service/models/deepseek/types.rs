@@ -10,6 +10,8 @@ pub struct ChatMessage {
 pub struct DeepSeekRequest {
     pub model: String,
     pub messages: Vec<ChatMessage>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub max_tokens: Option<u32>,
     pub stream: bool,
 }
 

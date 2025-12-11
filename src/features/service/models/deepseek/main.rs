@@ -1,4 +1,6 @@
-use crate::features::service::constants::DEFAULT_DEEPSEEK_MODEL;
+use crate::features::service::constants::{
+    DEFAULT_DEEPSEEK_MAX_OUTPUT_TOKENS, DEFAULT_DEEPSEEK_MODEL,
+};
 use crate::features::service::dto::chat_prompt::ChatPrompt;
 use crate::features::service::models::deepseek::types::{
     ChatMessage, DeepSeekRequest, DeepSeekResponse,
@@ -31,9 +33,11 @@ pub async fn deepseek(
         content: prompt.user_message.clone(),
     });
 
+    // Enforce the provider's maximum output tokens to avoid truncated responses.
     let request = DeepSeekRequest {
         model: resolved_model,
         messages,
+        max_tokens: Some(DEFAULT_DEEPSEEK_MAX_OUTPUT_TOKENS),
         stream: false,
     };
 

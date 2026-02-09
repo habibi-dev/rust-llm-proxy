@@ -41,6 +41,23 @@ pub async fn deepseek(
         stream: false,
     };
 
+    let mut request_value = serde_json::to_value(&request)?;
+
+    request_value["type"] = serde_json::json!("json_object");
+
+    if let Some(obj) = request_value.as_object_mut() {
+        // Enable thinking mode
+        obj.insert(
+            "thinking".to_string(),
+            serde_json::json!({
+                "type": "enabled",
+            }),
+        );
+
+        // If you also want JSON mode response format
+        obj.insert("type".to_string(), serde_json::json!("json_object"));
+    }
+
     let client = Client::new();
     let url = "https://api.deepseek.com/chat/completions";
 
@@ -48,7 +65,7 @@ pub async fn deepseek(
         .post(url)
         .header("Content-Type", "application/json")
         .header("Authorization", format!("Bearer {api_key}"))
-        .json(&request)
+        .json(&request_value)
         .send()
         .await?;
     let response_body = response.text().await?;

@@ -46,13 +46,13 @@ pub async fn deepseek(
     request_value["type"] = serde_json::json!("json_object");
 
     if let Some(obj) = request_value.as_object_mut() {
-        // Enable thinking mode
-        obj.insert(
-            "thinking".to_string(),
-            serde_json::json!({
-                "type": "enabled",
-            }),
-        );
+        // // Enable thinking mode
+        // obj.insert(
+        //     "thinking".to_string(),
+        //     serde_json::json!({
+        //         "type": "enabled",
+        //     }),
+        // );
 
         // If you also want JSON mode response format
         obj.insert("type".to_string(), serde_json::json!("json_object"));

@@ -34,10 +34,10 @@ pub async fn deepseek(
         content: prompt.user_message.clone(),
     });
 
-    let max_tokens = if resolved_model == "deepseek-chat" {
-        Some(DEFAULT_DEEPSEEK_MAX_OUTPUT_TOKENS)
-    } else {
+    let max_tokens = if resolved_model == "deepseek-reasoner" {
         Some(DEFAULT_DEEPSEEK_THINKING_MAX_OUTPUT_TOKENS)
+    } else {
+        Some(DEFAULT_DEEPSEEK_MAX_OUTPUT_TOKENS)
     };
 
     // Enforce the provider's maximum output tokens to avoid truncated responses.
